@@ -49,8 +49,10 @@ public class Main {
                 }
                 case 4: {
                     Scanner sc2 = new Scanner(System.in);
-                    BigVigenere bV = new BigVigenere();
+                    String numericKey = " ";
+                    BigVigenere bV = new BigVigenere(numericKey);
                     int position;
+
                     do {
                         System.out.println("Ingrese la posición del caracter que quere buscar (0 -- 4095)");
                         position = sc2.nextInt();
@@ -59,18 +61,22 @@ public class Main {
 
                     char letra = bV.search(position);
                         System.out.print("El caracter en la posicion " + position + " es: " + letra);
+                        break;
                 }
                 case 5: {
                     Scanner sc2 = new Scanner(System.in);
-                    BigVigenere bV = new BigVigenere();
+                    String numericKey = " ";
+                    BigVigenere bV = new BigVigenere(numericKey);
                     int position;
+
                     do {
                         System.out.println("Ingrese la posición del caracter que quere buscar (0 -- 4095)");
                         position = sc2.nextInt();
                     } while (position < 0 || position > 4095);
 
-                    char letra = bV.search(position);
-                    System.out.print("El caracter en la posicion " + position + " es: " + letra);
+                    char letra = bV.optimalSearch(position);
+                    System.out.println("El caracter en la posicion " + position + " es: " + letra );
+                    break;
                 }
                 case 6: {
                     menu = false;

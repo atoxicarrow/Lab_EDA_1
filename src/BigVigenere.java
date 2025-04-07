@@ -164,8 +164,8 @@ public class BigVigenere {
 
 
     public char optimalSearch(int position){
-        int fila= position % 64;
-        int columna = position /64;
+        int columna= position % 64;
+        int fila = position /64;
 
         char letra= alphabet[fila][columna];
 
