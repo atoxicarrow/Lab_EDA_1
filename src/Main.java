@@ -16,6 +16,7 @@ public class Main {
             System.out.println("4. Search caracter");
             System.out.println("5. Search caracter optimo");
             System.out.println("6. Salir");
+            System.out.println("7. Evaluar rendimiento con distintas claves");
             System.out.print("Ingrese una opcion:");
             Scanner sc = new Scanner(System.in);
             int op = sc.nextInt();
@@ -82,8 +83,45 @@ public class Main {
                     menu = false;
                     break;
                 }
+                case 7: {
+                    evaluarTiempos();
+                    break;
+                }
             }
         }
     }
+    public static void evaluarTiempos() {
+        int[] longitudes = {10, 50, 100, 500, 1000, 5000};
+        String caracteres = "abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ0123456789 ";
+        StringBuilder mensajeBuilder = new StringBuilder();
+        for (int i = 0; i < 10000; i++) {
+            mensajeBuilder.append(caracteres.charAt((int)(Math.random() * caracteres.length())));
+        }
+        String mensaje = mensajeBuilder.toString();
+
+        System.out.println("TamañoClave | TiempoEncriptado (ms) | TiempoDesencriptado (ms)");
+
+        for (int l : longitudes) {
+            StringBuilder claveBuilder = new StringBuilder();
+            for (int i = 0; i < l; i++) {
+                claveBuilder.append(caracteres.charAt((int)(Math.random() * 63)));
+            }
+            String clave = claveBuilder.toString();
+            BigVigenere bv = new BigVigenere(clave);
+
+            long inicio = System.nanoTime();
+            String encriptado = bv.encrypt(mensaje);
+            long fin = System.nanoTime();
+            long tiempoEncrypt = (fin - inicio) / 1_000_000;
+
+            inicio = System.nanoTime();
+            bv.decrypt(encriptado);
+            fin = System.nanoTime();
+            long tiempoDecrypt = (fin - inicio) / 1_000_000;
+
+            System.out.printf("%11d | %21d | %23d\n", l, tiempoEncrypt, tiempoDecrypt);
+        }
+    }
+
 }
 
